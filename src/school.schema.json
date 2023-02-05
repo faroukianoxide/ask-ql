@@ -1,0 +1,51 @@
+{
+    "tables": [
+        {
+            "name": "student",
+            "columns":[
+                {"name": "id", "description": "the primary key."},
+                {
+                    "name": "first_name"
+                },
+                {
+                    "name": "last_name"
+                },
+                {
+                    "name": "department_id",
+                    "foreign_key": {"table": "department", "column": "id"}
+                },
+                {
+                    "name": "level"
+                },
+                {
+                    "name": "admission_date",
+                    "description": "the year of admission. It's a timestamp"
+                }
+            ]
+        },
+        {
+            "name": "department",
+            "columns": [
+                {"name": "id"},
+                {"name": "name"}
+            ]
+        },
+        {
+            "name": "course",
+            "columns": [
+                {"name": "id"},
+                {"name": "title", "description": "the name or title of the course"},
+                {"name": "course_unit"}
+            ]
+        },
+        {
+            "name": "result",   
+            "columns": [
+                {"name": "id"},
+                {"name": "course_id", "foreign_key": {"table": "course", "column": "id"}},
+                {"name": "student_id", "foreign_key": {"table": "student", "column": "id"}},
+                {"name": "score"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,101 @@
+:root {
+    --theme-color: #00800080;
+}
+body {
+    background-color: var(--theme-color);
+    font-family: monospace;
+}
+
+.center-pane {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px;
+    width: 50rem;
+    height: 30rem;
+    background-color: #fff;
+
+}
+
+#logoText {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    font-size: 40px;
+}
+
+#queryTextField {
+    height: 100px;
+    width: 100%;
+    
+}
+
+#inputDiv {
+    margin-top: 10px;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+#queryButton {
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+    color: #fff;
+
+}
+
+.spinner-border {
+    --bs-spinner-width: 2rem;
+    --bs-spinner-height: 2rem;
+    --bs-spinner-vertical-align: -0.125em;
+    --bs-spinner-border-width: 0.25em;
+    --bs-spinner-animation-speed: 0.75s;
+    --bs-spinner-animation-name: spinner-border;
+    border: var(--bs-spinner-border-width) solid;
+    border-right-color: transparent;
+
+    display: inline-block;
+    width: var(--bs-spinner-width);
+    height: var(--bs-spinner-height);
+    vertical-align: var(--bs-spinner-vertical-align);
+    border-radius: 50%;
+    -webkit-animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+    animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+    color: var(--theme-color);
+    border-right-color: transparent;
+    margin-left: 20px;
+    margin-right: 30px;
+}
+
+.spinner-container {
+    padding-left: 50%;
+    padding-top: 50px;
+    display: none;
+}
+
+#resultTableContainer {         
+    height: 300px;
+    display: none;
+}
+
+#resultTableContainer > table {         
+    overflow-x: scroll;
+    overflow-y: scroll; 
+}
+
+#answerPlaceholder {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: auto;
+}
+
+#answerPlaceholder > span {
+   font-size: 50px;
+}

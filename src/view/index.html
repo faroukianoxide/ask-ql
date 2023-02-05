@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<head>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h2 id="logoText">askQL </h2>
+    <div class="center-pane border shadow-sm">
+        
+        <span>What would you like to know about your data? Press <code>Ctrl + Enter</code> to ask.</span>
+        <div id="inputDiv">
+            <textarea class="form-control" id="queryTextField"></textarea>
+            <button id="queryButton" class="btn" accesskey="e" onclick="askQuestion()">Ask</button>
+        </div>
+
+        <div class="spinner-container" id="tableSpinner">
+            <div class="spinner-border mx-auto"></div>
+        </div>
+
+        
+        
+        <div id="resultTableContainer" class="table-responsive">
+        </div>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener('keypress', function(e){
+         if (e.key === "\n") {
+            askQuestion();
+         }
+           
+        }, false);
+
+        function askQuestion() {
+            let question = $('#queryTextField').val()
+            question = question.trim();
+            if (question) {
+                sendQuestionToServer(question)
+            }
+        }
+
+        function sendQuestionToServer(question) {
+            console.log("sendings")
+            clearResultTable();
+            startSpinner(); 
+            $.get(`/entry?query=${question}`).
+                then((data) => {
+                    stopSpinner();
+                    console.log(data);
+                    if (data.length == 0 || !data) {
+                        createResultTable([{
+                            Result: "No Result"}])
+                    } else createResultTable(data)
+
+                }).fail((data, text, xhr) => {
+                    stopSpinner();
+                    createResultTable([{
+                        Result: "Operation not permitted in safe mode"}])
+
+                })
+        }
+
+
+
+        function startSpinner() {
+            
+            const tableSpinner = $('#tableSpinner');
+            tableSpinner.css("display", "block");
+        }
+
+        function stopSpinner () {
+            const tableSpinner = $('#tableSpinner');
+            tableSpinner.css("display", "none");
+        }
+
+        function clearResultTable () {
+            const resultTableContainer = $('#resultTableContainer');
+            resultTableContainer.css("display", "block")
+            resultTableContainer.html('')
+        }
+
+        function createResultTable(data) {
+            const keys = Object.keys(data[0])
+            const colCount = keys.length;
+            let table = `
+            <table class="table table-responsive">
+                <thead class="thead-dark"> 
+                    <tr><th scope = "col"> S/N </th>`;
+            // create table headings
+            for (let i = 0; i< colCount; i++)
+                table += `<th scope = "col"> ${Object.keys(data[0])[i]} </th>`
+            table += "</tr></thead><tbody>";
+            // create table body
+
+            for (let row = 0; row < data.length; row++ ) {
+                table += `<tr scope = row> <td>${row + 1}</td>`;
+                for (let col = 0; col < colCount; col++) {
+                    table += `<td> ${data[row][keys[col]]} </td>`;
+                }
+                table += "</tr>"
+            }
+            table += "</tbody></table>"         
+
+            const resultTableContainer = $('#resultTableContainer');
+            resultTableContainer.html(table)
+     
+        }
+    </script>
+
+</body>
+
+</html>
