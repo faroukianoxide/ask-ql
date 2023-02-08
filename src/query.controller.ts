@@ -2,13 +2,15 @@ import * as fs from 'fs'
 import * as openai from 'openai'
 import * as express from 'express'
 
+import * as path from 'path'
+
 import pool from './db.config'
 
 
 export const loadSchema = async (req: express.Request, res: express.Response):Promise<any> => {
 
     try {
-        fs.readFile(__dirname + "\\school.schema.json", 'utf8', async (err: NodeJS.ErrnoException | null, data: string) => {
+        fs.readFile(path.join(__dirname, "school.schema.json"), 'utf8', async (err: NodeJS.ErrnoException | null, data: string) => {
             if (err) {
                 console.error(err);
                 return;
