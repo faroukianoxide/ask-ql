@@ -1,5 +1,5 @@
 # ask-ql
-A project that demonstrates querying Postgres (or any SQL DB) with plain English using GPT3
+A project that demonstrates querying Postgres (or any SQL DB) with plain English using GPT3. A safety mechanism has been included to prevent the execution of unsafe "questions".
 
 <img src= "./demo/image1.png" width=50% height=50%>
 <img src= "./demo/image2.png" width=50% height=50%>
